@@ -7,10 +7,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.reactnativedocumentpicker.ReactNativeDocumentPicker; // Import package
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.rngrp.RNGRPPackage;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,10 +21,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new ReactNativeDocumentPicker(),
-          new RNFetchBlobPackage(),
-          new RNGRPPackage()
+          new MainReactPackage()
       );
     }
 

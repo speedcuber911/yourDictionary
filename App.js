@@ -7,68 +7,17 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, Button } from "react-native";
-import {
-  DocumentPicker,
-  DocumentPickerUtil
-} from "react-native-document-picker";
-import RNFetchBlob from "rn-fetch-blob";
-import RNGRP from "react-native-get-real-path";
+import { Platform, StyleSheet, View, Fragment } from "react-native";
+import { Button, Text, Input, Icon } from "pebble-native";
+import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import SearchWord from "./SearchWord";
+import YourList from "./YourList";
+import Quiz from "./Quiz";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
+const TabNavigator = createBottomTabNavigator({
+  SearcScreen: { screen: SearchWord },
+  YourList: { screen: YourList },
+  Quiz: { screen: Quiz }
 });
 
-type Props = {};
-
-readContent = async uri => {
-  console.log(uri);
-  RNGRP.getRealPathFromURI(uri)
-    .then(filePath => console.log(filePath))
-    .catch(err => console.log(err));
-  // .then(stream => {
-  //   console.log(stream);
-  //   let data = "";
-  //   stream.open();
-  //   stream.onData(chunk => {
-  //     data += chunk;
-  //   });
-  //   stream.onEnd(() => {
-  //     console.log(data);
-  //   });
-  // })
-  // .catch(e => console.log(e));
-};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>File Picker starts here</Text>
-        <Button
-          title={"Explorer"}
-          onPress={() =>
-            DocumentPicker.show(
-              { filetype: [DocumentPickerUtil.allFiles()] },
-              (e, r) => readContent(r)
-            )
-          }
-        />
-      </View>
-    );
-  }
-}
+export default TabNavigator;

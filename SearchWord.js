@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, View, Fragment } from "react-native";
 import { Button, Text, Input } from "pebble-native";
+import ImagePicker from "react-native-customized-image-picker";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +25,9 @@ const styles = StyleSheet.create({
 
 export default class SearchWord extends Component {
   state = { word: null };
+
+  showImager = () => console.log(ImagePicker);
+
   render() {
     const { word } = this.state;
     return (
@@ -39,7 +43,7 @@ export default class SearchWord extends Component {
             />
           </View>
         </View>
-        <Button.FooterButton title={"Explorer"} onPress={() => {}}>
+        <Button.FooterButton title={"Explorer"} onPress={this.showImager} >
           Add Word
         </Button.FooterButton>
       </React.Fragment>

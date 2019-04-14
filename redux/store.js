@@ -1,4 +1,17 @@
-import {createStore, compose/* , applyMiddleware*/} from 'redux';
+import {createStore, compose} from 'redux';
 import rootReducer from './reducers/root.reducer';
-import { createEpicMiddleware } from "redux-observable";
-import storePersistConfig from "../config/storePersist";
+
+const enhancerList = [];
+const devToolsExtension = window && window.__REDUX_DEVTOOLS_EXTENSION__;
+
+if (typeof devToolsExtension === 'function') {
+    enhancerList.push(devToolsExtension());
+}
+
+const composedEnhancer = compose(...enhancerList);
+
+const initStore = () => createStore(rootReducer, {}, composedEnhancer);
+
+module.exports = {
+    initStore
+};

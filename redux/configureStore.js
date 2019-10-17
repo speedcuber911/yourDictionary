@@ -2,12 +2,13 @@ import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
 import {createStore, compose} from 'redux';
 
-// import rootReducer from './reducers/root.reducer'
 import {combineReducers} from 'redux';
 import addWord from "./reducers/addWord.reducer";
+import removeWord from "./reducers/removeWord.reducer";
 
 const rootReducer = combineReducers({
-     addWord
+     addWord,
+     removeWord
 });
 
 const persistConfig = {

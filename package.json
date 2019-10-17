@@ -8,6 +8,7 @@
     "build": "react-native run-android"
   },
   "dependencies": {
+    "native-base": "^2.12.1",
     "pebble-native": "^0.18.1",
     "ramda": "^0.26.1",
     "react": "16.6.3",

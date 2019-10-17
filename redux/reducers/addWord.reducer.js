@@ -5,6 +5,13 @@ const addWord = (state = {}, {type, payload}) => {
         case ADD_WORD: {
             return {...state, ...payload};
         }
+        case "DELETE_WORD": {
+            console.log(payload);
+            const {payload, ...rest} = state;
+            console.log(rest)           ;
+            // return rest;
+            return state;
+        }
         default:
             return state;
     }

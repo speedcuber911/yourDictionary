@@ -3,8 +3,6 @@ import {Platform, StyleSheet, View, Fragment} from "react-native";
 import {Button, Text, Input, colors} from "pebble-native";
 import {ajax} from "rxjs/observable/dom/ajax";
 import {connect} from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
-
 
 const styles = StyleSheet.create({
     container: {
@@ -34,22 +32,22 @@ const mapStateToProps = ({addWord}) => {
 class SearchWord extends Component {
 
     state = {word: null, meanings: [], errorMessage: null};
-
-    fetchStream$ = ajax({
-        url: `https://od-api.oxforddictionaries.com/api/v1/entries/en/${this.state.word}/definitions;regions=us`,
-        method: "GET",
-        headers: {
-            "Accept": "application/json",
-            "app_id": "34a38a1b",
-            "app_key": "e75ad02cdeff6ec68b45fe7747c04fde"
-        }
-    });
     getMeaning = (word) => {
+
+        const fetchStream$ = ajax({
+            url: `https://od-api.oxforddictionaries.com/api/v1/entries/en/${this.state.word}/definitions;regions=us`,
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "app_id": "34a38a1b",
+                "app_key": "e75ad02cdeff6ec68b45fe7747c04fde"
+            }
+        });
         if (this.props.words[word]) {
             this.setState({errorMessage: "Already in word list."});
             return;
         }
-        this.fetchStream$.subscribe(({response}) => {
+        fetchStream$.subscribe(({response}) => {
                 let meanings = [];
                 response.results[0]['lexicalEntries'].map(({entries}) => entries.map(({senses}) => senses.map(({definitions}) => ((definitions.map(definition => meanings.push(definition)))))));
                 this.props.dispatch({type: "ADD_WORD", payload: {[word]: meanings}});
@@ -62,12 +60,10 @@ class SearchWord extends Component {
 
     render() {
         const {word, meanings, errorMessage} = this.state;
-        console.log(this.props);
         return (
             <React.Fragment>
                 <View style={styles.container}>
                     <Text size={25}>Your Dictionary</Text>
-                    <Icon name='glass'/>
                     <View style={{flexDirection: "row", alignItems: "center", flex: 1}}>
                         <Input
                             placeholder="Add word"
@@ -80,7 +76,7 @@ class SearchWord extends Component {
                 </View>
                 <View>
                     {
-                        meanings.map((meaning, i) => <Text key={i} size={18} style={{
+                        meanings.map((meaning, i) => <Text key={i} sze={18} style={{
                             backgroundColor: "#F5FCFF",
                             paddingHorizontal: 10
                         }}>{`${i + 1}) ${meaning}`}</Text>)
